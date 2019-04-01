@@ -18,6 +18,10 @@ public class AccountManager {
         return instance;
     }
 
+    public static User getUser() {
+        return user;
+    }
+
     public void modifyUser(User newUser) {
         user = newUser;
     }
