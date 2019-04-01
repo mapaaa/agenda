@@ -27,3 +27,7 @@ There are two services:
   * GetAllNotes
   * GetAllEvents
   * GetTaskById
+
+## Next features
+  * User authentication
+  * Categories for entries
