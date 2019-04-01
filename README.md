@@ -16,15 +16,14 @@ There are two services:
   * ModifyUser
 
 * AgendaManager - all tasks, reminders, notes etc operations
-
-⋅⋅⋅ AddTask
-⋅⋅⋅ AddEvent
-⋅⋅⋅ AddReminder
-⋅⋅⋅ AddNote
-⋅⋅⋅ CompleteTask
-⋅⋅⋅ GetAllTasks
-⋅⋅⋅ GetAllAgendaEntries
-⋅⋅⋅ GetAllReminders
-⋅⋅⋅ GetAllNotes
-⋅⋅⋅ GetAllEvents
-⋅⋅⋅ GetTaskById
+  * AddTask
+  * AddEvent
+  * AddReminder
+  * AddNote
+  * CompleteTask
+  * GetAllTasks
+  * GetAllAgendaEntries
+  * GetAllReminders
+  * GetAllNotes
+  * GetAllEvents
+  * GetTaskById
