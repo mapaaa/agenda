@@ -4,11 +4,11 @@ import com.mapa.model.User;
 
 public class AccountManager {
     private static AccountManager instance;
-    private static User user;
+    private  User user;
 
     //TODO: authentication
     private AccountManager(User user){
-        AccountManager.user = user;
+        this.user = user;
     }
 
     public static AccountManager getInstance(User user) {
@@ -18,7 +18,7 @@ public class AccountManager {
         return instance;
     }
 
-    public static User getUser() {
+    public  User getUser() {
         return user;
     }
 
