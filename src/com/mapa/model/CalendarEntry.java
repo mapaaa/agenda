@@ -33,4 +33,9 @@ public abstract class CalendarEntry extends AgendaEntry {
     public boolean getAllDay() {
         return allDay;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getDate() + ", " + getAllDay();
+    }
 }

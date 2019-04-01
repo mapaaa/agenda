@@ -14,4 +14,9 @@ public class Note extends AgendaEntry {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getContent();
+    }
 }

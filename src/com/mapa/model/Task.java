@@ -37,4 +37,9 @@ public class Task extends AgendaEntry {
     public void setTodo() {
         this.state = TaskState.TODO;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getDescription() + ", " + getState();
+    }
 }

@@ -10,4 +10,9 @@ public class Reminder extends CalendarEntry {
     public boolean isNowOrPast() {
         return getDate().compareTo(new Date()) <= 0;
     }
+
+    @Override
+    public String toString() {
+        return getName() + ", " + getDate();
+    }
 }
