@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Reminder extends CalendarEntry {
-    Reminder(String name, Date date) {
+    public Reminder(String name, Date date) {
         super(name, date);
     }
 

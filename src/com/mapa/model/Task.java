@@ -5,7 +5,7 @@ public class Task extends AgendaEntry {
     private TaskState state;
 
 
-    Task(String name) {
+    public Task(String name) {
         super(name);
         this.state = TaskState.TODO;
     }

@@ -7,7 +7,7 @@ public class Event extends CalendarEntry {
     //TODO: add geolocation instead of String
     private String location;
 
-    Event(String name, Date date) {
+    public Event(String name, Date date) {
         super(name, date);
     }
 
