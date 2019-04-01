@@ -4,20 +4,18 @@ import java.util.Date;
 
 public abstract class CalendarEntry extends AgendaEntry {
     private Date date;
-    private String description;
-    //TODO: add geolocation instead of String
-    private String location;
+    private boolean allDay;
 
     CalendarEntry(String name, Date date) {
         super(name);
+        this.allDay = false;
+        this.date = date;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    CalendarEntry(String name, Date date, boolean allDay) {
+        super(name);
+        this.date = date;
+        this.allDay = allDay;
     }
 
     public Date getDate() {
@@ -28,11 +26,11 @@ public abstract class CalendarEntry extends AgendaEntry {
         this.date = date;
     }
 
-    public String getLocation() {
-        return location;
+    public void setAllDay(boolean allDay) {
+        this.allDay = allDay;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public boolean getAllDay() {
+        return allDay;
     }
 }
