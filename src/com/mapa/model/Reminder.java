@@ -1,11 +1,10 @@
 package com.mapa.model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class Reminder extends CalendarEntry {
-    public Reminder(String name, Date date) {
-        super(name, date);
+    public Reminder(int id, String name, Date date) {
+        super(id, name, date);
     }
 
     public boolean isNowOrPast() {

@@ -52,4 +52,9 @@ public class User {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return id + ", " + firstName + ", " + lastName + ", " + emailAddress + ", " + birthDay;
+    }
 }

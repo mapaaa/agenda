@@ -1,9 +1,11 @@
 package com.mapa.model;
 
 public abstract class AgendaEntry {
+    private int id;
     private String name;
 
-    AgendaEntry(String name) {
+    AgendaEntry(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 

@@ -6,14 +6,14 @@ public abstract class CalendarEntry extends AgendaEntry {
     private Date date;
     private boolean allDay;
 
-    CalendarEntry(String name, Date date) {
-        super(name);
+    CalendarEntry(int id, String name, Date date) {
+        super(id, name);
         this.allDay = false;
         this.date = date;
     }
 
-    CalendarEntry(String name, Date date, boolean allDay) {
-        super(name);
+    CalendarEntry(int id, String name, Date date, boolean allDay) {
+        super(id, name);
         this.date = date;
         this.allDay = allDay;
     }
