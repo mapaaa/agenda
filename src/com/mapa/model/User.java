@@ -7,6 +7,15 @@ public class User {
     private String lastName;
     private String emailAddress;
     private Date birthDay;
+    private int id;
+
+    public User(int id, String firstName, String lastName, String emailAddress, Date birthDay) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.birthDay = birthDay;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -38,5 +47,9 @@ public class User {
 
     public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public int getId() {
+        return id;
     }
 }
