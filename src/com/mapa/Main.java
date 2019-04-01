@@ -29,6 +29,6 @@ public class Main {
 
         System.out.println("Let's complete task with id = 5");
         agendaManager.completeTask(5);
-        System.out.println(agendaManager.getTask(5));
+        System.out.println(agendaManager.getTaskById(5));
     }
 }

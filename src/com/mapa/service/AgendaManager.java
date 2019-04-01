@@ -88,7 +88,7 @@ public class AgendaManager {
         return new ArrayList<>(agenda.tasksList.values());
     }
 
-    public Task getTask(int id) {
+    public Task getTaskById(int id) {
         return agenda.tasksList.get(id);
     }
 }
