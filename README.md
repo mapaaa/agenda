@@ -12,9 +12,8 @@ Simple organizer in Java.
 ## Actions
 There are two services:
 * AccountManager - user related information such as First Name, Last Name, Date of birth etc
-
-⋅⋅⋅ GetUser
-⋅⋅⋅ ModifyUser
+  * GetUser
+  * ModifyUser
 
 * AgendaManager - all tasks, reminders, notes etc operations
 
