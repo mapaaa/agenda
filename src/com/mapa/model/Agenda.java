@@ -15,14 +15,9 @@ public class Agenda {
     // Tasks are standalone
     public List<Task> tasksList;
 
-    public Agenda(User user) {
-        this.user = user;
+    public Agenda() {
         this.calendarEventsList = new ArrayList<>();
         this.notesList = new ArrayList<>();
         this.tasksList = new ArrayList<>();
-    }
-
-    public User getUser() {
-        return user;
     }
 }
