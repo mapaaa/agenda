@@ -23,27 +23,38 @@ public class AgendaManager {
     }
 
     // ADD
-    public void addEvent(String name, String description, Date date, String location, boolean allDay) {
-        Event newEvent = new Event(name, date);
+    public void addEvent(int id, String name, String description, Date date, String location, boolean allDay) {
+        Event newEvent = new Event(id, name, date);
         newEvent.setDescription(description);
         newEvent.setLocation(location);
         newEvent.setAllDay(allDay);
+        agenda.calendarEventsList.add(newEvent);
     }
 
-    public void addNote(String name, String content) {
-        Note newNote = new Note(name);
+    public void addNote(int id, String name, String content) {
+        Note newNote = new Note(id, name);
         newNote.setContent(content);
+        agenda.notesList.add(newNote);
     }
 
-    public void addReminder(String name, Date date, boolean allDay) {
-        Reminder reminder = new Reminder(name, date);
-        reminder.setAllDay(allDay);
+    public void addReminder(int id, String name, Date date, boolean allDay) {
+        Reminder newReminder = new Reminder(id, name, date);
+        newReminder.setAllDay(allDay);
+        agenda.calendarEventsList.add(newReminder);
     }
 
-    public void addTask(String name, String description) {
-        Task newTask = new Task(name);
+    public void addTask(int id, String name, String description) {
+        Task newTask = new Task(id, name);
         newTask.setDescription(description);
-        agenda.tasksList.add(newTask);
+        agenda.tasksList.put(id, newTask);
+    }
+
+    // MODIFY
+    public void completeTask(int id) {
+        Task task = agenda.tasksList.get(id);
+        if (task != null) {
+            task.complete();
+        }
     }
 
     // GET
@@ -51,7 +62,7 @@ public class AgendaManager {
         List<AgendaEntry> allEntriesList = new ArrayList<>();
         allEntriesList.addAll(agenda.calendarEventsList);
         allEntriesList.addAll(agenda.notesList);
-        allEntriesList.addAll(agenda.tasksList);
+        allEntriesList.addAll(agenda.tasksList.values());
         return allEntriesList;
     }
 
@@ -74,6 +85,10 @@ public class AgendaManager {
     }
 
     public List<Task> getAllTasks() {
-        return agenda.tasksList;
+        return new ArrayList<>(agenda.tasksList.values());
+    }
+
+    public Task getTask(int id) {
+        return agenda.tasksList.get(id);
     }
 }
