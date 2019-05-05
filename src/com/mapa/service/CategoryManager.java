@@ -2,8 +2,6 @@ package com.mapa.service;
 
 import com.mapa.model.Category;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryManager {
@@ -24,39 +22,18 @@ public class CategoryManager {
 
     private CategoryManager(int uid) {
         userId = uid;
-        categories = loadCategories();
-    }
-
-    private List<Category> loadCategories() {
-        List<Category> categoryList = new ArrayList<>();
-        try {
-            FileReader categories = new FileReader("data/categories.csv");
-            BufferedReader buffer = new BufferedReader(categories);
-            String line;
-            while((line = buffer.readLine()) != null){
-                String[] values = line.split(",");
-                int id = Integer.valueOf(values[0]);
-                int uid = Integer.valueOf(values[1]);
-                String label = values[2];
-                if (uid == userId) {
-                    categoryList.add(new Category(id, label));
-                }
-            }
-            buffer.close();
-            categories.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return categoryList;
+        categories = CSVIO.LoadCategories(uid);
     }
     
     public void AddCategory(Category category) {
+        Logger.Log("Added new category locally");
         saveCategory(category);
         categories.add(category);
     }
 
 
     public Category GetCategory(int id) {
+        Logger.Log("Get category by id");
         for (var category : categories) {
             if (category.getId() == id) {
                 return category;
@@ -66,16 +43,11 @@ public class CategoryManager {
     }
 
     public List<Category> GetCategories() {
+        Logger.Log("Get all categories");
         return categories;
     }
 
     private void saveCategory(Category category) {
-        try {
-            FileWriter categories = new FileWriter("data/categories.csv", true);
-            String[] values = {String.valueOf(category.getId()), String.valueOf(userId), category.getLabel()};
-            categories.append(String.join(",", values));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CSVIO.SaveCategory(category, userId);
     }
 }

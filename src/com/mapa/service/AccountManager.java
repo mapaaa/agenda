@@ -4,9 +4,6 @@ import com.mapa.model.User;
 
 import javax.swing.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -40,6 +37,7 @@ public class AccountManager {
 
     // Performs username and password verification and returns corresponding user id
     public void Login() {
+        Logger.Log("Login initiated");
         Optional<Integer> userId = Optional.empty();
         int attempts = 3;
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
@@ -53,22 +51,15 @@ public class AccountManager {
                 String emailAddress = buffer.readLine();
                 System.out.println("Enter password: ");
                 JPasswordField pf = new JPasswordField();
-                String password = JOptionPane.showConfirmDialog(null, pf, "Enter password: ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
+                String password = JOptionPane.showConfirmDialog(null, pf, "Parola este password ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
                 String passwordHash = md5HashPassword(password);
-                BufferedReader credentialsBuffer = new BufferedReader(new FileReader("data/credentials.csv"));
-                String line;
-                while ((line = credentialsBuffer.readLine()) != null) {
-                    String[] info = line.split(",");
-                    if (info[0].equals(emailAddress) && info[1].equals(passwordHash)) {
-                        foundCredentials = true;
-                        userId = Optional.of(Integer.parseInt(info[2]));
-                        break;
-                    }
+                userId = CSVIO.checkCredentials(emailAddress, passwordHash);
+                if (userId.isPresent() ){
+                    foundCredentials = true;
                 }
-                if (!foundCredentials) {
+                else {
                     System.out.println("Wrong username or password. Please try again.");
                 }
-
             }
             if (attempts == 0) {
                 System.out.println("Sorry...too many login attempts");
@@ -89,6 +80,7 @@ public class AccountManager {
     // Register new user
     // TODO: validations
     public void Register() {
+        Logger.Log("Register initiated");
         System.out.println("Please complete the following register form: ");
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
@@ -129,25 +121,7 @@ public class AccountManager {
     }
 
     private void SaveData(User user, String passwordHash) {
-        try {
-            BufferedWriter usersBuffer = new BufferedWriter(new FileWriter("data/users.csv", true));
-            BufferedWriter credentialsBuffer = new BufferedWriter(new FileWriter("data/credentials.csv", true));
-
-            String birthDay = new SimpleDateFormat("dd/MM/yyyy").format(user.getBirthDay());
-            String userInfo = user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getEmailAddress() + " " + birthDay;
-            String credentialsInfo = user.getEmailAddress() + " " + passwordHash + " " + user.getId();
-
-            usersBuffer.newLine();
-            usersBuffer.append(userInfo);
-
-            credentialsBuffer.newLine();
-            credentialsBuffer.append(credentialsInfo);
-            credentialsBuffer.close();
-            usersBuffer.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        CSVIO.SaveUserData(user, passwordHash);
     }
 
     private String md5HashPassword(String password) {
@@ -171,38 +145,12 @@ public class AccountManager {
 
     private User createNewUser(String firstName, String lastName, String emailAddress, Date birthDay) {
         User newUser = null;
-        try {
-            Path path = Paths.get("data/credentials.csv");
-            long userId = Files.lines(path).count() + 1;
-            System.out.println(userId);
-            newUser = new User((int)userId, firstName, lastName, emailAddress, birthDay);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        long userId = CSVIO.GetNextUserId();
+        newUser = new User((int)userId, firstName, lastName, emailAddress, birthDay);
         return newUser;
     }
 
     private User getUserById(Integer userId) {
-        User user = null;
-        try {
-            BufferedReader usersBuffer = new BufferedReader(new FileReader("data/users.csv"));
-            String line;
-            while ((line = usersBuffer.readLine()) != null) {
-                String[] info = line.split(",");
-                if (userId.compareTo(Integer.parseInt(info[0])) == 0) {
-                    user = new User(
-                            userId,
-                            info[1],
-                            info[2],
-                            info[3],
-                            new SimpleDateFormat("dd/MM/yyyy").parse(info[4]));
-                    break;
-                }
-            }
-        }
-        catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return user;
+        return CSVIO.GetUserById(userId);
     }
 }

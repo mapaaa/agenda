@@ -26,7 +26,7 @@ public abstract class AgendaEntry {
         this.category = category;
     }
 
-    public String customToString() {
-        return this.toString() + ", " + category.toString();
+    public int getId() {
+        return id;
     }
 }
