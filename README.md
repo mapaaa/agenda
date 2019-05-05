@@ -10,7 +10,7 @@ Simple organizer in Java.
 * Task
 
 ## Actions
-There are two services:
+There are two major services:
 * AccountManager - user related information such as First Name, Last Name, Date of birth etc
   * GetUser
   * ModifyUser
@@ -27,7 +27,3 @@ There are two services:
   * GetAllNotes
   * GetAllEvents
   * GetTaskById
-
-## Next features
-  * User authentication
-  * Categories for entries
