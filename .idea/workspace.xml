@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="02896326-cd17-434d-b6d2-9feeaefdf4c8" name="Default Changelist" comment="CSV">
-      <change afterPath="$PROJECT_DIR$/data/categories.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/events.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/notes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/reminders.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/tasks.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/mapa/model/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/mapa/service/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/mapa/service/CategoryManager.java" afterDir="false" />
+    <list default="true" id="02896326-cd17-434d-b6d2-9feeaefdf4c8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data/credentials.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/users.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/Agenda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/Agenda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/AgendaEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/AgendaEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/Note.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/Reminder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/Reminder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/model/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Credentials.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Users.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/mapa/service/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/service/AccountManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,27 +34,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mapa/model/Reminder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
-              <folding>
-                <element signature="e#163#164#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mapa/model/CalendarEntry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mapa/model/AgendaEntry.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
@@ -82,20 +49,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mapa/model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-              <folding>
-                <element signature="e#1171#1172#0" expanded="true" />
-                <element signature="e#1217#1218#0" expanded="true" />
-                <element signature="e#1319#1320#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -149,17 +102,45 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AccountManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="177">
+              <caret line="190" column="42" selection-start-line="190" selection-start-column="37" selection-end-line="190" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#783#784#0" expanded="true" />
                 <element signature="e#810#811#0" expanded="true" />
                 <element signature="e#854#855#0" expanded="true" />
                 <element signature="e#884#885#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/credentials.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/users.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/events.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -187,6 +168,7 @@
       <find>datet</find>
       <find>user</find>
       <find>loadCategories</find>
+      <find>split</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,21 +182,21 @@
         <option value="$PROJECT_DIR$/src/com/mapa/model/User.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/com/mapa/service/Authentication.java" />
-        <option value="$PROJECT_DIR$/data/Credentials.txt" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Reminder.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Note.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Task.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/Main.java" />
-        <option value="$PROJECT_DIR$/data/Users.txt" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Event.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Agenda.java" />
-        <option value="$PROJECT_DIR$/src/com/mapa/service/AccountManager.java" />
         <option value="$PROJECT_DIR$/data/events.csv" />
         <option value="$PROJECT_DIR$/src/com/mapa/service/CategoryManager.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/Category.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/model/AgendaEntry.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/service/Application.java" />
         <option value="$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java" />
+        <option value="$PROJECT_DIR$/data/Credentials.txt" />
+        <option value="$PROJECT_DIR$/data/Users.txt" />
+        <option value="$PROJECT_DIR$/src/com/mapa/service/AccountManager.java" />
       </list>
     </option>
   </component>
@@ -355,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556388937006</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="CSV">
+      <created>1557058672383</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1557058672383</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -371,7 +360,7 @@
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14781217" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14781217" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -379,16 +368,16 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.3293348" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49786553" weight="0.3293348" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49199572" weight="0.24972737" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4967983" weight="0.3991276" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32937366" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49626467" weight="0.29225737" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50426894" side_tool="true" visible="true" weight="0.3293348" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50213444" side_tool="true" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49839914" weight="0.18865867" />
-      <window_info active="true" anchor="bottom" id="Messages" order="10" sideWeight="0.49573106" visible="true" weight="0.3293348" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49573106" weight="0.3293348" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -445,13 +434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/Credentials.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="53" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mapa/model/Note.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -486,13 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/Users.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mapa/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -505,26 +480,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/notes.csv">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/events.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AccountManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#810#811#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mapa/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -597,6 +552,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#307#308#0" expanded="true" />
+            <element signature="e#348#349#0" expanded="true" />
+            <element signature="e#2765#2766#0" expanded="true" />
+            <element signature="e#2812#2813#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/events.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/credentials.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/users.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mapa/model/AgendaEntry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -610,16 +600,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AgendaManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/mapa/service/AccountManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+        <state relative-caret-position="177">
+          <caret line="190" column="42" selection-start-line="190" selection-start-column="37" selection-end-line="190" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#307#308#0" expanded="true" />
-            <element signature="e#348#349#0" expanded="true" />
-            <element signature="e#2765#2766#0" expanded="true" />
-            <element signature="e#2812#2813#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#884#885#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -55,10 +55,10 @@ public class AccountManager {
                 JPasswordField pf = new JPasswordField();
                 String password = JOptionPane.showConfirmDialog(null, pf, "Enter password: ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
                 String passwordHash = md5HashPassword(password);
-                BufferedReader credentialsBuffer = new BufferedReader(new FileReader("data/Credentials.txt"));
+                BufferedReader credentialsBuffer = new BufferedReader(new FileReader("data/credentials.csv"));
                 String line;
                 while ((line = credentialsBuffer.readLine()) != null) {
-                    String[] info = line.split("\\s+");
+                    String[] info = line.split(",");
                     if (info[0].equals(emailAddress) && info[1].equals(passwordHash)) {
                         foundCredentials = true;
                         userId = Optional.of(Integer.parseInt(info[2]));
@@ -130,8 +130,8 @@ public class AccountManager {
 
     private void SaveData(User user, String passwordHash) {
         try {
-            BufferedWriter usersBuffer = new BufferedWriter(new FileWriter("data/Users.txt", true));
-            BufferedWriter credentialsBuffer = new BufferedWriter(new FileWriter("data/Credentials.txt", true));
+            BufferedWriter usersBuffer = new BufferedWriter(new FileWriter("data/users.csv", true));
+            BufferedWriter credentialsBuffer = new BufferedWriter(new FileWriter("data/credentials.csv", true));
 
             String birthDay = new SimpleDateFormat("dd/MM/yyyy").format(user.getBirthDay());
             String userInfo = user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getEmailAddress() + " " + birthDay;
@@ -172,7 +172,7 @@ public class AccountManager {
     private User createNewUser(String firstName, String lastName, String emailAddress, Date birthDay) {
         User newUser = null;
         try {
-            Path path = Paths.get("data/Credentials.txt");
+            Path path = Paths.get("data/credentials.csv");
             long userId = Files.lines(path).count() + 1;
             System.out.println(userId);
             newUser = new User((int)userId, firstName, lastName, emailAddress, birthDay);
@@ -185,10 +185,10 @@ public class AccountManager {
     private User getUserById(Integer userId) {
         User user = null;
         try {
-            BufferedReader usersBuffer = new BufferedReader(new FileReader("data/Users.txt"));
+            BufferedReader usersBuffer = new BufferedReader(new FileReader("data/users.csv"));
             String line;
             while ((line = usersBuffer.readLine()) != null) {
-                String[] info = line.split("\\s+");
+                String[] info = line.split(",");
                 if (userId.compareTo(Integer.parseInt(info[0])) == 0) {
                     user = new User(
                             userId,
