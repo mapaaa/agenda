@@ -11,74 +11,65 @@ public class AgendaManager {
     private static AgendaManager instance;
     private static Agenda agenda;
 
-    private AgendaManager(){
-        agenda = new Agenda();
+    private AgendaManager(User user){
+        agenda = new Agenda(user);
     }
 
-    public static AgendaManager getInstance() {
+    static AgendaManager getInstance(User user) {
         if (instance == null) {
-            return instance = new AgendaManager();
+            return instance = new AgendaManager(user);
         }
         return instance;
     }
 
-    // ADD
-    public void addEvent(int id, String name, String description, Date date, String location, boolean allDay) {
-        Event newEvent = new Event(id, name, date);
-        newEvent.setDescription(description);
-        newEvent.setLocation(location);
-        newEvent.setAllDay(allDay);
-        agenda.calendarEventsList.add(newEvent);
+    // Add
+    public void addEvent(int id, String name, String description, Date date, Date endDate, String location, boolean allDay, Category category) {
+        Event newEvent = new Event(id, name, description, location, date, endDate, allDay);
+        newEvent.setCategory(category);
+        agenda.calendarEventsList.put(id, newEvent);
     }
 
-    public void addNote(int id, String name, String content) {
-        Note newNote = new Note(id, name);
-        newNote.setContent(content);
-        agenda.notesList.add(newNote);
+    public void addNote(int id, String name, String content, Category category) {
+        Note newNote = new Note(id, name, content);
+        newNote.setCategory(category);
+        agenda.notesList.put(id, newNote);
     }
 
-    public void addReminder(int id, String name, Date date, boolean allDay) {
-        Reminder newReminder = new Reminder(id, name, date);
-        newReminder.setAllDay(allDay);
-        agenda.calendarEventsList.add(newReminder);
+    public void addReminder(int id, String name, Date date, boolean allDay, Category category) {
+        Reminder newReminder = new Reminder(id, name, date, allDay);
+        newReminder.setCategory(category);
+        agenda.calendarEventsList.put(id, newReminder);
     }
 
-    public void addTask(int id, String name, String description) {
-        Task newTask = new Task(id, name);
-        newTask.setDescription(description);
+    public void addTask(int id, String name, String description, TaskState state, Category category) {
+        Task newTask = new Task(id, name, description, state);
+        newTask.setCategory(category);
         agenda.tasksList.put(id, newTask);
     }
 
-    // MODIFY
-    public void completeTask(int id) {
-        Task task = agenda.tasksList.get(id);
-        if (task != null) {
-            task.complete();
-        }
-    }
-
-    // GET
+    // Get
     public List<AgendaEntry> getAllEntries() {
         List<AgendaEntry> allEntriesList = new ArrayList<>();
-        allEntriesList.addAll(agenda.calendarEventsList);
-        allEntriesList.addAll(agenda.notesList);
+        allEntriesList.addAll(agenda.calendarEventsList.values());
+        allEntriesList.addAll(agenda.notesList.values());
         allEntriesList.addAll(agenda.tasksList.values());
         return allEntriesList;
     }
 
     public List<Event> getAllEvents() {
-        return agenda.calendarEventsList.stream()
+        return agenda.calendarEventsList.values().stream()
                 .filter(Event.class::isInstance)
                 .map(Event.class::cast)
                 .collect(Collectors.toList());
     }
 
     public List<Note> getAllNotes() {
-        return agenda.notesList;
+        List<Note> allNotesList = new ArrayList<>(agenda.notesList.values());
+        return allNotesList;
     }
 
     public List<Reminder> getAllReminders() {
-        return agenda.calendarEventsList.stream()
+        return agenda.calendarEventsList.values().stream()
                 .filter(Reminder.class::isInstance)
                 .map(Reminder.class::cast)
                 .collect(Collectors.toList());
@@ -90,5 +81,30 @@ public class AgendaManager {
 
     public Task getTaskById(int id) {
         return agenda.tasksList.get(id);
+    }
+
+    // Update
+    public void completeTask(int id) {
+        Task task = agenda.tasksList.get(id);
+        if (task != null) {
+            task.complete();
+        }
+    }
+
+    // delete
+    public void deleteEvent(int id) {
+        agenda.calendarEventsList.remove(id);
+    }
+
+    public void deleteNote(int id) {
+        agenda.notesList.remove(id);
+    }
+
+    public void deleteReminder(int id) {
+        agenda.calendarEventsList.remove(id);
+    }
+
+    public void deleteTask(int id) {
+        agenda.tasksList.remove(id);
     }
 }

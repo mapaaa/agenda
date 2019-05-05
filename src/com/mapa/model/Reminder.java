@@ -3,8 +3,8 @@ package com.mapa.model;
 import java.util.Date;
 
 public class Reminder extends CalendarEntry {
-    public Reminder(int id, String name, Date date) {
-        super(id, name, date);
+    public Reminder(int id, String name, Date date, boolean allDay) {
+        super(id, name, date, allDay);
     }
 
     public boolean isNowOrPast() {

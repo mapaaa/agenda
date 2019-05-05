@@ -1,12 +1,12 @@
 package com.mapa;
 
-import com.mapa.service.AccountManager;
+import com.mapa.service.Application;
 
 public class Main {
 
     public static void main(String[] args) {
-        var accountManager = AccountManager.getInstance();
-      //  accountManager.Login();
-        accountManager.Register();
+        var app = new Application();
+        app.Start();
+        app.Demo();
     }
 }

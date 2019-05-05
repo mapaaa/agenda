@@ -9,10 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 
@@ -24,12 +22,15 @@ public class AccountManager {
 
     public static AccountManager getInstance() {
         if (instance == null) {
-            return instance = new AccountManager();
+            instance = new AccountManager();
+        }
+        if (instance.user == null) {
+            instance.Login();
         }
         return instance;
     }
 
-    public  User getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -48,7 +49,6 @@ public class AccountManager {
         try {
             while (attempts != 0 && !foundCredentials) {
                 --attempts;
-
                 System.out.println("Enter email address: ");
                 String emailAddress = buffer.readLine();
                 System.out.println("Enter password: ");
@@ -78,7 +78,7 @@ public class AccountManager {
         }
 
         if (userId.isPresent()) {
-            User user = getUserById(userId.get());
+            user = getUserById(userId.get());
             if (user != null) {
                 System.out.println("Login successful");
                 System.out.println("Welcome back " + user.getFirstName());
