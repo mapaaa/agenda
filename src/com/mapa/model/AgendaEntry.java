@@ -4,9 +4,11 @@ public abstract class AgendaEntry {
     private int id;
     private String name;
     private Category category;
+    private int uid;
 
-    AgendaEntry(int id, String name) {
+    AgendaEntry(int id, int uid, String name) {
         this.id = id;
+        this.uid = uid;
         this.name = name;
     }
 
@@ -28,5 +30,9 @@ public abstract class AgendaEntry {
 
     public int getId() {
         return id;
+    }
+
+    public int getUid() {
+        return uid;
     }
 }

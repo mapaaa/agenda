@@ -3,7 +3,7 @@ package com.mapa.service;
 import com.mapa.model.*;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,36 +25,36 @@ public class AgendaManager {
     }
 
     // Add
-    public void addEvent(int id, String name, String description, Date date, Date endDate, String location, boolean allDay, Category category) {
+    public void addEvent(int id, String name, String description, LocalDate date, LocalDate endDate, String location, boolean allDay, Category category) {
         Logger.Log("Create event locally");
-        Event newEvent = new Event(id, name, description, location, date, endDate, allDay);
+        Event newEvent = new Event(id, userId, name, description, location, date, endDate, allDay);
         newEvent.setCategory(category);
         agenda.calendarEvents.put(id, newEvent);
-        CSVIO.SaveEvent(newEvent, userId);
+        DatabaseManager.getInstance().Create(newEvent);
     }
 
     public void addNote(int id, String name, String content, Category category) {
         Logger.Log("Create note locally");
-        Note newNote = new Note(id, name, content);
+        Note newNote = new Note(id, userId, name, content);
         newNote.setCategory(category);
         agenda.notes.put(id, newNote);
-        CSVIO.SaveNote(newNote, userId);
+        DatabaseManager.getInstance().Create(newNote);
     }
 
-    public void addReminder(int id, String name, Date date, boolean allDay, Category category) {
+    public void addReminder(int id, String name, LocalDate date, boolean allDay, Category category) {
         Logger.Log("Create reminder locally");
-        Reminder newReminder = new Reminder(id, name, date, allDay);
+        Reminder newReminder = new Reminder(id, userId, name, date, allDay);
         newReminder.setCategory(category);
         agenda.calendarEvents.put(id, newReminder);
-        CSVIO.SaveReminder(newReminder, userId);
+        DatabaseManager.getInstance().Create(newReminder);
     }
 
     public void addTask(int id, String name, String description, TaskState state, Category category) {
         Logger.Log("Create task locally");
-        Task newTask = new Task(id, name, description, state);
+        Task newTask = new Task(id, userId, name, description, state);
         newTask.setCategory(category);
         agenda.tasks.put(id, newTask);
-        CSVIO.SaveTask(newTask, userId);
+        DatabaseManager.getInstance().Create(newTask);
     }
 
     // Get
@@ -105,27 +105,32 @@ public class AgendaManager {
         Task task = agenda.tasks.get(id);
         if (task != null) {
             task.complete();
+            DatabaseManager.getInstance().Update(task);
         }
     }
 
     // delete
     public void deleteEvent(int id) {
         Logger.Log("Delete event locally");
+        DatabaseManager.getInstance().DeleteEvent(id);
         agenda.calendarEvents.remove(id);
     }
 
     public void deleteNote(int id) {
         Logger.Log("Delete note locally");
+        DatabaseManager.getInstance().DeleteNote(id);
         agenda.notes.remove(id);
     }
 
     public void deleteReminder(int id) {
         Logger.Log("Delete reminder locally");
+        DatabaseManager.getInstance().DeleteReminder(id);
         agenda.calendarEvents.remove(id);
     }
 
     public void deleteTask(int id) {
         Logger.Log("Delete task locally");
+        DatabaseManager.getInstance().DeleteTask(id);
         agenda.tasks.remove(id);
     }
 }

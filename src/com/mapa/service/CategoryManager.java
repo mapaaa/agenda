@@ -5,7 +5,6 @@ import com.mapa.model.Category;
 import java.util.List;
 
 public class CategoryManager {
-    private static int userId;
     private static CategoryManager instance;
     private static List<Category> categories;
 
@@ -21,14 +20,12 @@ public class CategoryManager {
     }
 
     private CategoryManager(int uid) {
-        userId = uid;
-        categories = CSVIO.LoadCategories(uid);
+        categories = DatabaseManager.getInstance().SelectAllCategories(uid);
     }
     
     public void AddCategory(Category category) {
-        Logger.Log("Added new category locally");
-        saveCategory(category);
-        categories.add(category);
+        int c_id = DatabaseManager.getInstance().Create(category);
+        categories.add(new Category(c_id, category.getUid(), category.getLabel()));
     }
 
 
@@ -45,9 +42,5 @@ public class CategoryManager {
     public List<Category> GetCategories() {
         Logger.Log("Get all categories");
         return categories;
-    }
-
-    private void saveCategory(Category category) {
-        CSVIO.SaveCategory(category, userId);
     }
 }

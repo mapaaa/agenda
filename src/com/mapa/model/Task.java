@@ -5,8 +5,8 @@ public class Task extends AgendaEntry {
     private TaskState state;
 
 
-    public Task(int id, String name, String description, TaskState state) {
-        super(id, name);
+    public Task(int id, int uid, String name, String description, TaskState state) {
+        super(id, uid, name);
         this.state = state;
         this.description = description;
     }

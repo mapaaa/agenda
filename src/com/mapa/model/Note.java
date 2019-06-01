@@ -3,8 +3,8 @@ package com.mapa.model;
 public class Note extends AgendaEntry {
     //TODO: contents could be more than just text i.e. images
     private String content;
-    public Note(int id, String name, String content) {
-        super(id, name);
+    public Note(int id, int uid, String name, String content) {
+        super(id, uid, name);
         this.content = content;
     }
 

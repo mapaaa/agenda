@@ -3,12 +3,12 @@ package com.mapa.service;
 import com.mapa.model.User;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class AccountManager {
@@ -22,7 +22,8 @@ public class AccountManager {
             instance = new AccountManager();
         }
         if (instance.user == null) {
-            instance.Login();
+            //instance.Login();
+            instance.Register();
         }
         return instance;
     }
@@ -53,7 +54,7 @@ public class AccountManager {
                 JPasswordField pf = new JPasswordField();
                 String password = JOptionPane.showConfirmDialog(null, pf, "Parola este password ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
                 String passwordHash = md5HashPassword(password);
-                userId = CSVIO.checkCredentials(emailAddress, passwordHash);
+                userId = DatabaseManager.getInstance().CheckCredential(emailAddress, passwordHash);
                 if (userId.isPresent() ){
                     foundCredentials = true;
                 }
@@ -105,7 +106,7 @@ public class AccountManager {
                 }
                 String passwordHash = md5HashPassword(password1);
                 System.out.println("Enter birth date (dd/mm/yyyy format): ");
-                Date birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(buffer.readLine());
+                LocalDate birthDay = LocalDate.parse(buffer.readLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
                 var user = createNewUser(firstName, lastName, emailAddress, birthDay);
                 formCompleted = true;
@@ -113,7 +114,7 @@ public class AccountManager {
                 SaveData(user, passwordHash);
             }
         }
-        catch (IOException | ParseException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Register successful! Redirecting to login...");
@@ -121,7 +122,7 @@ public class AccountManager {
     }
 
     private void SaveData(User user, String passwordHash) {
-        CSVIO.SaveUserData(user, passwordHash);
+        DatabaseManager.getInstance().Create(user);
     }
 
     private String md5HashPassword(String password) {
@@ -143,14 +144,14 @@ public class AccountManager {
         return passwordHash;
     }
 
-    private User createNewUser(String firstName, String lastName, String emailAddress, Date birthDay) {
-        User newUser = null;
-        long userId = CSVIO.GetNextUserId();
-        newUser = new User((int)userId, firstName, lastName, emailAddress, birthDay);
-        return newUser;
+    private User createNewUser(String firstName, String lastName, String emailAddress, LocalDate birthDay) {
+        User user = new User(0, firstName, lastName, emailAddress, birthDay);
+        int userId = DatabaseManager.getInstance().Create(user);
+        user = new User(userId, firstName, lastName, emailAddress, birthDay);
+        return user;
     }
 
     private User getUserById(Integer userId) {
-        return CSVIO.GetUserById(userId);
+        return DatabaseManager.getInstance().SelectUser(userId);
     }
 }

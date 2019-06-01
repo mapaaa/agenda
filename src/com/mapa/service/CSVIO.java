@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.time.LocalDate;
 
 public class CSVIO {
 
@@ -75,10 +77,10 @@ public class CSVIO {
                 int catid = Integer.valueOf(values[2]);
                 Category category = CategoryManager.getInstanceWhenLoggedIn().GetCategory(catid);
                 String name = values[3];
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(values[4]);
+                LocalDate date = LocalDate.parse(values[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 boolean allDay = Boolean.parseBoolean(values[5]);
                 if (uid == userId) {
-                    Reminder reminder = new Reminder(id, name, date, allDay);
+                    Reminder reminder = new Reminder(id, uid, name, date, allDay);
                     reminder.setCategory(category);
                     calendarEvents.put(id, reminder);
                 }
@@ -96,18 +98,18 @@ public class CSVIO {
                 String name = values[3];
                 String description = values[4];
                 String location = values[5];
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(values[6]);
-                Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(values[7]);
+                LocalDate date = LocalDate.parse(values[6], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDate endDate = LocalDate.parse(values[7], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 boolean allDay = Boolean.parseBoolean(values[8]);
                 if (uid == userId) {
-                    Event event = new Event(id, name, description, location, date, endDate, allDay);
+                    Event event = new Event(id, uid, name, description, location, date, endDate, allDay);
                     event.setCategory(category);
                     calendarEvents.put(id, event);
                 }
             }
             buffer.close();
             events.close();
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return calendarEvents;
@@ -128,7 +130,7 @@ public class CSVIO {
                 String name = values[3];
                 String content = values[4];
                 if (uid == userId) {
-                    Note note = new Note(id, name, content);
+                    Note note = new Note(id, uid, name, content);
                     note.setCategory(category);
                     notes.put(id, note);
                 }
@@ -157,7 +159,7 @@ public class CSVIO {
                 String description = values[4];
                 TaskState state = TaskState.valueOf(values[5]);
                 if (uid == userId) {
-                    Task task = new Task(id, name, description, state);
+                    Task task = new Task(id, uid, name, description, state);
                     task.setCategory(category);
                     tasks.put(id, task);
                 }
@@ -183,12 +185,12 @@ public class CSVIO {
                             info[1],
                             info[2],
                             info[3],
-                            new SimpleDateFormat("dd/MM/yyyy").parse(info[4]));
+                            LocalDate.parse(info[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     break;
                 }
             }
         }
-        catch (IOException | ParseException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
         return user;
@@ -206,7 +208,7 @@ public class CSVIO {
                 int uid = Integer.valueOf(values[1]);
                 String label = values[2];
                 if (uid == userId) {
-                    categoryList.add(new Category(id, label));
+                    categoryList.add(new Category(id, uid, label));
                 }
             }
             buffer.close();

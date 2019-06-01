@@ -1,28 +1,28 @@
 package com.mapa.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class CalendarEntry extends AgendaEntry {
-    private Date date;
+    private LocalDate date;
     private boolean allDay;
 
-    CalendarEntry(int id, String name, Date date) {
-        super(id, name);
+    CalendarEntry(int id, int uid, String name, LocalDate date) {
+        super(id, uid, name);
         this.allDay = false;
         this.date = date;
     }
 
-    CalendarEntry(int id, String name, Date date, boolean allDay) {
-        super(id, name);
+    CalendarEntry(int id, int uid, String name, LocalDate date, boolean allDay) {
+        super(id, uid, name);
         this.date = date;
         this.allDay = allDay;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

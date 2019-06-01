@@ -1,14 +1,14 @@
 package com.mapa.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Reminder extends CalendarEntry {
-    public Reminder(int id, String name, Date date, boolean allDay) {
-        super(id, name, date, allDay);
+    public Reminder(int id, int uid, String name, LocalDate date, boolean allDay) {
+        super(id, uid, name, date, allDay);
     }
 
     public boolean isNowOrPast() {
-        return getDate().compareTo(new Date()) <= 0;
+        return getDate().compareTo(LocalDate.now()) <= 0;
     }
 
     @Override

@@ -1,15 +1,15 @@
 package com.mapa.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Event extends CalendarEntry {
     private String description;
     //TODO: add geolocation instead of String
     private String location;
-    private Date endDate;
+    private LocalDate endDate;
 
-    public Event(int id, String name, String description, String location, Date date, Date endDate, boolean allDay) {
-        super(id, name, date, allDay);
+    public Event(int id, int uid, String name, String description, String location, LocalDate date, LocalDate endDate, boolean allDay) {
+        super(id, uid, name, date, allDay);
         this.description = description;
         this.location = location;
         this.endDate = endDate;
@@ -31,11 +31,11 @@ public class Event extends CalendarEntry {
         this.location = location;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
