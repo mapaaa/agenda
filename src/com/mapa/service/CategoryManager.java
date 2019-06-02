@@ -43,4 +43,9 @@ public class CategoryManager {
         Logger.Log("Get all categories");
         return categories;
     }
+
+    public void deleteCategory(int id) {
+        categories.removeIf(c -> c.getId() == id);
+        DatabaseManager.getInstance().DeleteCategory(id);
+    }
 }

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@SuppressWarnings("MagicConstant")
+
 public class DatabaseManager {
     private static Connection conn;
     private static DatabaseManager instance;
