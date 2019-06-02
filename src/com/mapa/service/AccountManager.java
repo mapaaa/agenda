@@ -4,7 +4,7 @@ import com.mapa.model.User;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -46,7 +46,7 @@ public class AccountManager {
     public boolean Register(String firstName, String lastName, String birthDay, String emailAddress, String password) {
         String passwordHash = md5HashPassword(password);
         try {
-            LocalDate birthDate = LocalDate.parse(birthDay, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDateTime birthDate = LocalDateTime.parse(birthDay, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             var user = createNewUser(firstName, lastName, emailAddress, birthDate);
             SaveData(user, passwordHash);
             Login(emailAddress, password);
@@ -80,7 +80,7 @@ public class AccountManager {
         return passwordHash;
     }
 
-    private User createNewUser(String firstName, String lastName, String emailAddress, LocalDate birthDay) {
+    private User createNewUser(String firstName, String lastName, String emailAddress, LocalDateTime birthDay) {
         User user = new User(0, firstName, lastName, emailAddress, birthDay);
         int userId = DatabaseManager.getInstance().Create(user);
         user = new User(userId, firstName, lastName, emailAddress, birthDay);

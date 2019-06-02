@@ -22,7 +22,7 @@ public class Main {
 
         // All ui panels
         LoginRegister loginRegister = new LoginRegister();
-        MainPage mainPage = new MainPage();
+        MainPage mainPage = new MainPage(mainFrame);
 
         loginRegister.setVisible(true);
         mainPage.setVisible(false);

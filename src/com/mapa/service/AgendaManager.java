@@ -3,7 +3,7 @@ package com.mapa.service;
 import com.mapa.model.*;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,15 +17,17 @@ public class AgendaManager {
         userId = user.getId();
     }
 
-    static AgendaManager getInstance(User user) {
-        if (instance == null) {
-            return instance = new AgendaManager(user);
-        }
+    public static AgendaManager makeInstance(User user) {
+        instance = new AgendaManager(user);
+        return instance;
+    }
+
+    public static AgendaManager getInstance() {
         return instance;
     }
 
     // Add
-    public void addEvent(int id, String name, String description, LocalDate date, LocalDate endDate, String location, boolean allDay, Category category) {
+    public void addEvent(int id, String name, String description, LocalDateTime date, LocalDateTime endDate, String location, boolean allDay, Category category) {
         Logger.Log("Create event locally");
         Event newEvent = new Event(id, userId, name, description, location, date, endDate, allDay);
         newEvent.setCategory(category);
@@ -41,7 +43,7 @@ public class AgendaManager {
         DatabaseManager.getInstance().Create(newNote);
     }
 
-    public void addReminder(int id, String name, LocalDate date, boolean allDay, Category category) {
+    public void addReminder(int id, String name, LocalDateTime date, boolean allDay, Category category) {
         Logger.Log("Create reminder locally");
         Reminder newReminder = new Reminder(id, userId, name, date, allDay);
         newReminder.setCategory(category);
@@ -65,6 +67,30 @@ public class AgendaManager {
         allEntriesList.addAll(agenda.notes.values());
         allEntriesList.addAll(agenda.tasks.values());
         return allEntriesList;
+    }
+
+    public List<CalendarEntry> getAllCalendarEntriesFromThisDate(LocalDateTime date) {
+        Logger.Log("Get all events");
+        return agenda.calendarEvents.values().stream()
+                .filter(e -> !e.getAllDay())
+                .filter(e -> e.getDate().getYear() == date.getYear() && e.getDate().getMonth() == date.getMonth() && e.getDate().getDayOfMonth() == date.getDayOfMonth())
+                .collect(Collectors.toList());
+    }
+
+    public List<CalendarEntry> getAllCalendarEntriesNotStartedInThisDate(LocalDateTime date) {
+        Logger.Log("Get all events");
+        return agenda.calendarEvents.values().stream()
+                .filter(Event.class::isInstance)
+                .filter(e -> e.getDate().isBefore(date) && date.isBefore (((Event) e).getEndDate()))
+                .collect(Collectors.toList());
+    }
+
+    public List<CalendarEntry> getAllDayCalendarEntriesFromThisDate(LocalDateTime date) {
+        Logger.Log("Get all events");
+        return agenda.calendarEvents.values().stream()
+                .filter(CalendarEntry::getAllDay)
+                .filter(e -> e.getDate().getYear() == date.getYear() && e.getDate().getMonth() == date.getMonth() && e.getDate().getDayOfMonth() == date.getDayOfMonth())
+                .collect(Collectors.toList());
     }
 
     public List<Event> getAllEvents() {

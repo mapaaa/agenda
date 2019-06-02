@@ -1,15 +1,15 @@
 package com.mapa.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class User {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private LocalDate birthDay;
+    private LocalDateTime birthDay;
     private int id;
 
-    public User(int id, String firstName, String lastName, String emailAddress, LocalDate birthDay) {
+    public User(int id, String firstName, String lastName, String emailAddress, LocalDateTime birthDay) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,11 +41,11 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public LocalDate getBirthDay() {
+    public LocalDateTime getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
+    public void setBirthDay(LocalDateTime birthDay) {
         this.birthDay = birthDay;
     }
 

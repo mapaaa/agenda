@@ -1,6 +1,6 @@
 package com.mapa.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Application {
@@ -26,7 +26,7 @@ public class Application {
         agendaManager.addNote(3, "New Note", "Content", categoryManager.GetCategory(1));
         agendaManager.addReminder(3,
                 "New Reminder",
-                LocalDate.parse("2019-12-12 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                LocalDateTime.parse("2019-12-12 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 false,
                 categoryManager.GetCategory(1));
 
@@ -42,7 +42,7 @@ public class Application {
         boolean registered = accountManager.Register(firstName, lastName, birthDate, email, password);
         if (registered) {
             categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
-            agendaManager = AgendaManager.getInstance(accountManager.getUser());
+            agendaManager = AgendaManager.makeInstance(accountManager.getUser());
         }
         return registered;
     }
@@ -50,7 +50,7 @@ public class Application {
     public boolean Login(String email, String password) {
         if (accountManager.Login(email, password)) {
             categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
-            agendaManager = AgendaManager.getInstance(accountManager.getUser());
+            agendaManager = AgendaManager.makeInstance(accountManager.getUser());
             return true;
         }
         return false;

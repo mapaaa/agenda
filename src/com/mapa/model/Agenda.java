@@ -1,6 +1,7 @@
 package com.mapa.model;
 
 import com.mapa.service.CSVIO;
+import com.mapa.service.DatabaseManager;
 
 import java.util.*;
 
@@ -18,8 +19,8 @@ public class Agenda {
 
     public Agenda(User user) {
         this.user = user;
-        this.calendarEvents = CSVIO.loadCalendarEntries(user.getId());
-        this.notes = CSVIO.loadNotes(user.getId());
-        this.tasks = CSVIO.loadTasks(user.getId());
+        this.calendarEvents = DatabaseManager.getInstance().SelectAllRemindersAndEvents(user.getId());
+        this.notes = DatabaseManager.getInstance().SelectAllNotes(user.getId());
+        this.tasks = DatabaseManager.getInstance().SelectAllTasks(user.getId());
     }
 }

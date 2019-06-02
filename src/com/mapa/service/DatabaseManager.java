@@ -3,7 +3,7 @@ package com.mapa.service;
 import com.mapa.model.*;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @SuppressWarnings("MagicConstant")
@@ -32,7 +32,7 @@ public class DatabaseManager {
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
             ps.setString(4, user.getEmailAddress());
-            ps.setDate(5, java.sql.Date.valueOf(user.getBirthDay()));
+            ps.setTimestamp(5, java.sql.Timestamp.valueOf(user.getBirthDay()));
             ps.executeUpdate();
             ResultSet key = ps.getGeneratedKeys();
             key.next();
@@ -92,10 +92,10 @@ public class DatabaseManager {
             }
             ps.setBoolean(4, event.getAllDay());
             ps.setString(5, event.getDescription());
-            ps.setDate(6, java.sql.Date.valueOf(event.getEndDate()));
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(event.getEndDate()));
             ps.setString(7, event.getLocation());
             ps.setString(8, event.getName());
-            ps.setDate(9, java.sql.Date.valueOf(event.getDate()));
+            ps.setTimestamp(9, java.sql.Timestamp.valueOf(event.getDate()));
             ps.executeUpdate();
             ResultSet key = ps.getGeneratedKeys();
             key.next();
@@ -174,7 +174,7 @@ public class DatabaseManager {
                 ps.setInt(3, cat.getId());
             }
             ps.setBoolean(4, reminder.getAllDay());
-            ps.setDate(5, java.sql.Date.valueOf(reminder.getDate()));
+            ps.setTimestamp(5, java.sql.Timestamp.valueOf(reminder.getDate()));
             ps.setString(6, reminder.getName());
             ps.executeUpdate();
             ResultSet key = ps.getGeneratedKeys();
@@ -195,7 +195,7 @@ public class DatabaseManager {
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
             ps.setString(3, user.getEmailAddress());
-            ps.setDate(4, java.sql.Date.valueOf(user.getBirthDay()));
+            ps.setTimestamp(4, java.sql.Timestamp.valueOf(user.getBirthDay()));
             ps.setInt(5, user.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -245,10 +245,10 @@ public class DatabaseManager {
             }
             ps.setBoolean(2, event.getAllDay());
             ps.setString(3, event.getDescription());
-            ps.setDate(4, java.sql.Date.valueOf(event.getEndDate()));
+            ps.setTimestamp(4, java.sql.Timestamp.valueOf(event.getEndDate()));
             ps.setString(5, event.getLocation());
             ps.setString(6, event.getName());
-            ps.setDate(7, java.sql.Date.valueOf(event.getDate()));
+            ps.setTimestamp(7, java.sql.Timestamp.valueOf(event.getDate()));
             ps.setInt(8, event.getId());
             ps.executeUpdate();
         } catch(SQLException e) {
@@ -312,7 +312,7 @@ public class DatabaseManager {
                 ps.setInt(1, cat.getId());
             }
             ps.setBoolean(2, reminder.getAllDay());
-            ps.setDate(3, java.sql.Date.valueOf(reminder.getDate()));
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(reminder.getDate()));
             ps.setString(4, reminder.getName());
             ps.setInt(5, reminder.getId());
             ps.executeUpdate();
@@ -333,7 +333,7 @@ public class DatabaseManager {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String emailAddress = rs.getString("email");
-                LocalDate birthDay = rs.getDate("birth_date").toLocalDate();
+                LocalDateTime birthDay = rs.getTimestamp("birth_date").toLocalDateTime();
                 return new User(userId, firstName, lastName, emailAddress, birthDay);
             }
         } catch (SQLException e) {
@@ -410,8 +410,8 @@ public class DatabaseManager {
                 String name = rs.getString("e_name");
                 String description = rs.getString("e_desc");
                 String location = rs.getString("e_location");
-                LocalDate date = rs.getDate("e_start_date").toLocalDate();
-                LocalDate endDate = rs.getDate("e_end_date").toLocalDate();
+                LocalDateTime date = rs.getTimestamp("e_start_date").toLocalDateTime();
+                LocalDateTime endDate = rs.getTimestamp("e_end_date").toLocalDateTime();
                 boolean allDay = rs.getBoolean("e_all_day");
                 return new Event(eventId, uid, name, description, location, date, endDate, allDay);
             }
@@ -433,11 +433,51 @@ public class DatabaseManager {
                 String name = rs.getString("e_name");
                 String description = rs.getString("e_desc");
                 String location = rs.getString("e_location");
-                LocalDate date = rs.getDate("e_start_date").toLocalDate();
-                LocalDate endDate = rs.getDate("e_end_date").toLocalDate();
+                LocalDateTime date = rs.getTimestamp("e_start_date").toLocalDateTime();
+                LocalDateTime endDate = rs.getTimestamp("e_end_date").toLocalDateTime();
                 boolean allDay = rs.getBoolean("e_all_day");
                 m.put(eventId, new Event(eventId, uid, name, description, location, date, endDate, allDay));
             }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return m;
+    }
+
+    public Map<Integer, CalendarEntry> SelectAllRemindersAndEvents(int uid)  {
+        String query = "select * from event where u_id = ?";
+        Map<Integer, CalendarEntry> m = new HashMap<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, uid);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                int eventId = rs.getInt("e_id");
+                String name = rs.getString("e_name");
+                String description = rs.getString("e_desc");
+                String location = rs.getString("e_location");
+                LocalDateTime date = rs.getTimestamp("e_start_date").toLocalDateTime();
+                LocalDateTime endDate = rs.getTimestamp("e_end_date").toLocalDateTime();
+                boolean allDay = rs.getBoolean("e_all_day");
+                m.put(eventId, new Event(eventId, uid, name, description, location, date, endDate, allDay));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        query = "select * from reminder where u_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, uid);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                int reminderId = rs.getInt("r_id");
+                String name = rs.getString("r_name");
+                LocalDateTime date = rs.getTimestamp("r_date").toLocalDateTime();
+                boolean allDay = rs.getBoolean("r_all_day");
+                m.put(reminderId + 100, new Reminder(reminderId, uid, name, date, allDay));
+            }
+
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -530,7 +570,7 @@ public class DatabaseManager {
             while(rs.next()) {
                 int uid = rs.getInt("u_id");
                 String name = rs.getString("r_name");
-                LocalDate date = rs.getDate("r_date").toLocalDate();
+                LocalDateTime date = rs.getTimestamp("r_date").toLocalDateTime();
                 boolean allDay = rs.getBoolean("r_all_day");
                 return new Reminder(reminderId, uid, name, date, allDay);
             }
@@ -550,7 +590,7 @@ public class DatabaseManager {
             while(rs.next()) {
                 int reminderId = rs.getInt("u_id");
                 String name = rs.getString("r_name");
-                LocalDate date = rs.getDate("r_date").toLocalDate();
+                LocalDateTime date = rs.getTimestamp("r_date").toLocalDateTime();
                 boolean allDay = rs.getBoolean("r_all_day");
                 m.put(reminderId, new Reminder(reminderId, uid, name, date, allDay));
             }

@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CSVIO {
 
@@ -76,7 +76,7 @@ public class CSVIO {
                 int catid = Integer.valueOf(values[2]);
                 Category category = CategoryManager.getInstanceWhenLoggedIn().GetCategory(catid);
                 String name = values[3];
-                LocalDate date = LocalDate.parse(values[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTime date = LocalDateTime.parse(values[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 boolean allDay = Boolean.parseBoolean(values[5]);
                 if (uid == userId) {
                     Reminder reminder = new Reminder(id, uid, name, date, allDay);
@@ -97,8 +97,8 @@ public class CSVIO {
                 String name = values[3];
                 String description = values[4];
                 String location = values[5];
-                LocalDate date = LocalDate.parse(values[6], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                LocalDate endDate = LocalDate.parse(values[7], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTime date = LocalDateTime.parse(values[6], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTime endDate = LocalDateTime.parse(values[7], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 boolean allDay = Boolean.parseBoolean(values[8]);
                 if (uid == userId) {
                     Event event = new Event(id, uid, name, description, location, date, endDate, allDay);
@@ -184,7 +184,7 @@ public class CSVIO {
                             info[1],
                             info[2],
                             info[3],
-                            LocalDate.parse(info[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                            LocalDateTime.parse(info[4], DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     break;
                 }
             }
