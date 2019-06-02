@@ -23,7 +23,8 @@ public class CategoryManager {
         categories = DatabaseManager.getInstance().SelectAllCategories(uid);
     }
     
-    public void AddCategory(Category category) {
+    public void AddCategory(String label) {
+        Category category = new Category(0, AccountManager.getInstance().getUser().getId(), label);
         int c_id = DatabaseManager.getInstance().Create(category);
         categories.add(new Category(c_id, category.getUid(), category.getLabel()));
     }
@@ -47,5 +48,12 @@ public class CategoryManager {
     public void deleteCategory(int id) {
         categories.removeIf(c -> c.getId() == id);
         DatabaseManager.getInstance().DeleteCategory(id);
+    }
+
+    public int AddCategoryAndGetId(String label) {
+        Category category = new Category(0, AccountManager.getInstance().getUser().getId(), label);
+        int c_id = DatabaseManager.getInstance().Create(category);
+        categories.add(new Category(c_id, category.getUid(), category.getLabel()));
+        return c_id;
     }
 }

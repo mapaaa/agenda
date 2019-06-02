@@ -27,6 +27,7 @@ public class AccountManager {
 
     public void modifyUser(User newUser) {
         user = newUser;
+        DatabaseManager.getInstance().Update(user);
     }
 
     // Performs username and password verification and returns corresponding user id
