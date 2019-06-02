@@ -27,7 +27,7 @@ public class DatabaseManager {
                 "values(?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
@@ -47,7 +47,7 @@ public class DatabaseManager {
         String query = "insert into category(c_id, u_id, c_label)" +
                 "values(?, ?, ?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, category.getUid());
             ps.setString(3, category.getLabel());
@@ -80,7 +80,7 @@ public class DatabaseManager {
         String query = "insert into event(e_id, u_id, c_id, e_all_day, e_desc, e_end_date, e_location, e_name, e_start_date)" +
                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, event.getUid());
             var cat = event.getCategory();
@@ -110,7 +110,7 @@ public class DatabaseManager {
         String query = "insert into note(n_id, u_id, c_id, n_cont, n_name)" +
                 "values(?, ?, ?, ?, ?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, note.getUid());
             var cat = note.getCategory();
@@ -136,7 +136,7 @@ public class DatabaseManager {
         String query = "insert into task(t_id, u_id, c_id, t_desc, t_name, t_state)" +
                 "values(?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, task.getUid());
             var cat = task.getCategory();
@@ -163,7 +163,7 @@ public class DatabaseManager {
         String query = "insert into reminder(r_id, u_id, c_id, r_all_day, r_date, r_name)" +
                 "values(?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, reminder.getUid());
             var cat = reminder.getCategory();
@@ -333,7 +333,7 @@ public class DatabaseManager {
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String emailAddress = rs.getString("email");
-                LocalDate birthDay = rs.getDate("birth_day").toLocalDate();
+                LocalDate birthDay = rs.getDate("birth_date").toLocalDate();
                 return new User(userId, firstName, lastName, emailAddress, birthDay);
             }
         } catch (SQLException e) {

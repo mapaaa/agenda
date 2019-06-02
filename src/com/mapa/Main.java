@@ -34,7 +34,7 @@ public class Main {
             loginDialog.setVisible(true);
         });
         registerButton.addActionListener(e -> {
-            RegisterDialog registerDialog = new RegisterDialog();
+            RegisterDialog registerDialog = new RegisterDialog(mainFrame, application);
             registerDialog.setVisible(true);
         });
         mainFrame.add(loginRegister);

@@ -38,10 +38,13 @@ public class Application {
         }
     }
 
-    public void Register() {
-        accountManager.Register();
-        categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
-        agendaManager = AgendaManager.getInstance(accountManager.getUser());
+    public boolean Register(String firstName, String lastName, String birthDate, String email, String password) {
+        boolean registered = accountManager.Register(firstName, lastName, birthDate, email, password);
+        if (registered) {
+            categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
+            agendaManager = AgendaManager.getInstance(accountManager.getUser());
+        }
+        return registered;
     }
 
     public boolean Login(String email, String password) {
@@ -51,5 +54,14 @@ public class Application {
             return true;
         }
         return false;
+    }
+
+    public String getFirstName() {
+        if (accountManager.getUser() != null) {
+            return accountManager.getUser().getFirstName();
+        }
+        else {
+            return "";
+        }
     }
 }

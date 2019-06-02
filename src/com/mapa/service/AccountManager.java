@@ -2,8 +2,6 @@ package com.mapa.service;
 
 import com.mapa.model.User;
 
-import javax.swing.*;
-import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -32,11 +30,11 @@ public class AccountManager {
     }
 
     // Performs username and password verification and returns corresponding user id
-    public boolean Login(String email, String password) {
+    public boolean Login(String emailAddress, String password) {
         Logger.Log("Login initiated");
         Optional<Integer> userId;
         String passwordHash = md5HashPassword(password);
-        userId = DatabaseManager.getInstance().CheckCredential(email, passwordHash);
+        userId = DatabaseManager.getInstance().CheckCredential(emailAddress, passwordHash);
         if (userId.isPresent()) {
             user = getUserById(userId.get());
             return true;
@@ -45,50 +43,22 @@ public class AccountManager {
         }
     }
 
-    // Register new user
-    // TODO: validations
-    public void Register() {
-        Logger.Log("Register initiated");
-        System.out.println("Please complete the following register form: ");
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-
+    public boolean Register(String firstName, String lastName, String birthDay, String emailAddress, String password) {
+        String passwordHash = md5HashPassword(password);
         try {
-            boolean formCompleted = false;
-            while(!formCompleted) {
-                System.out.println("Enter first name: ");
-                String firstName = buffer.readLine();
-                System.out.println("Enter last name: ");
-                String lastName = buffer.readLine();
-                System.out.println("Enter email address: ");
-                String emailAddress = buffer.readLine();
-                System.out.println("Enter password: ");
-                JPasswordField pf1 = new JPasswordField();
-                String password1 = JOptionPane.showConfirmDialog(null, pf1, "Enter password: ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf1.getPassword()) : "";
-                System.out.println("Confirm password: ");
-                JPasswordField pf2 = new JPasswordField();
-                String password2 = JOptionPane.showConfirmDialog(null, pf2, "Confirm password: ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf2.getPassword()) : "";
-                if (!password1.equals(password2)) {
-                    System.out.println("Passwords don't match. Try again");
-                    continue;
-                }
-                String passwordHash = md5HashPassword(password1);
-                System.out.println("Enter birth date (dd/mm/yyyy format): ");
-                LocalDate birthDay = LocalDate.parse(buffer.readLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-                var user = createNewUser(firstName, lastName, emailAddress, birthDay);
-                formCompleted = true;
-
-                SaveData(user, passwordHash);
-            }
+            LocalDate birthDate = LocalDate.parse(birthDay, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            var user = createNewUser(firstName, lastName, emailAddress, birthDate);
+            SaveData(user, passwordHash);
+            Login(emailAddress, password);
+            return true;
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch(Exception e) {
+            return false;
         }
-        System.out.println("Register successful! Redirecting to login...");
     }
 
     private void SaveData(User user, String passwordHash) {
-        DatabaseManager.getInstance().Create(user);
+        DatabaseManager.getInstance().CreateCredential(user.getId(), user.getEmailAddress(), passwordHash);
     }
 
     private String md5HashPassword(String password) {
