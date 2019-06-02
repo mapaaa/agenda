@@ -17,6 +17,7 @@ public class RegisterDialog  extends JDialog {
     private JTextField birthDate;
 
     public RegisterDialog(JFrame parentFrame, Application app) {
+        super(parentFrame, "Register", true);
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
 

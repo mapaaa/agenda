@@ -14,6 +14,7 @@ public class LoginDialog  extends JDialog {
     private boolean succeeded;
 
     public LoginDialog(JFrame parentFrame, Application app) {
+        super(parentFrame, "Login", true);
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
 
