@@ -8,14 +8,11 @@ public class Application {
     private AccountManager accountManager;
     private AgendaManager agendaManager;
     private CategoryManager categoryManager;
-    private DatabaseManager databaseManager;
 
     public void Start() {
         logger = new Logger("log.csv");
         logger.Log("Application Started");
         accountManager = AccountManager.getInstance();
-        categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
-        agendaManager = AgendaManager.getInstance(accountManager.getUser());
     }
 
     public void Demo() {
@@ -39,5 +36,20 @@ public class Application {
         for (var entry : entries) {
             System.out.println(entry.toString());
         }
+    }
+
+    public void Register() {
+        accountManager.Register();
+        categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
+        agendaManager = AgendaManager.getInstance(accountManager.getUser());
+    }
+
+    public boolean Login(String email, String password) {
+        if (accountManager.Login(email, password)) {
+            categoryManager = CategoryManager.getInstance(accountManager.getUser().getId());
+            agendaManager = AgendaManager.getInstance(accountManager.getUser());
+            return true;
+        }
+        return false;
     }
 }

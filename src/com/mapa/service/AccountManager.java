@@ -3,7 +3,6 @@ package com.mapa.service;
 import com.mapa.model.User;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,10 +20,6 @@ public class AccountManager {
         if (instance == null) {
             instance = new AccountManager();
         }
-        if (instance.user == null) {
-            //instance.Login();
-            instance.Register();
-        }
         return instance;
     }
 
@@ -37,45 +32,17 @@ public class AccountManager {
     }
 
     // Performs username and password verification and returns corresponding user id
-    public void Login() {
+    public boolean Login(String email, String password) {
         Logger.Log("Login initiated");
-        Optional<Integer> userId = Optional.empty();
-        int attempts = 3;
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("Login");
-        boolean foundCredentials = false;
-        try {
-            while (attempts != 0 && !foundCredentials) {
-                --attempts;
-                System.out.println("Enter email address: ");
-                String emailAddress = buffer.readLine();
-                System.out.println("Enter password: ");
-                JPasswordField pf = new JPasswordField();
-                String password = JOptionPane.showConfirmDialog(null, pf, "Parola este password ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
-                String passwordHash = md5HashPassword(password);
-                userId = DatabaseManager.getInstance().CheckCredential(emailAddress, passwordHash);
-                if (userId.isPresent() ){
-                    foundCredentials = true;
-                }
-                else {
-                    System.out.println("Wrong username or password. Please try again.");
-                }
-            }
-            if (attempts == 0) {
-                System.out.println("Sorry...too many login attempts");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        Optional<Integer> userId;
+        String passwordHash = md5HashPassword(password);
+        userId = DatabaseManager.getInstance().CheckCredential(email, passwordHash);
         if (userId.isPresent()) {
             user = getUserById(userId.get());
-            if (user != null) {
-                System.out.println("Login successful");
-                System.out.println("Welcome back " + user.getFirstName());
-            }
-         }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Register new user
@@ -118,7 +85,6 @@ public class AccountManager {
             e.printStackTrace();
         }
         System.out.println("Register successful! Redirecting to login...");
-        Login();
     }
 
     private void SaveData(User user, String passwordHash) {

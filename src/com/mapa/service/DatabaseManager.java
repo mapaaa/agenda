@@ -2,12 +2,11 @@ package com.mapa.service;
 
 import com.mapa.model.*;
 
-import javax.xml.transform.Result;
 import java.sql.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+@SuppressWarnings("MagicConstant")
 public class DatabaseManager {
     private static Connection conn;
     private static DatabaseManager instance;
